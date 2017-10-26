@@ -1,3 +1,6 @@
+
+// this works, but needs work
+//after the user stops, it is not update the last input
 var flag = false;
 var searchYouTube = (options, callback) => {
   var url = 'https://www.googleapis.com/youtube/v3/search';

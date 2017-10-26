@@ -1,10 +1,36 @@
-var VideoList = (props) => (
-  <div className="video-list">
-    {
-      props.videos.map(video => <VideoListEntry video={video} handleTitleClick={props.handleTitleClick}/>)
+var VideoList = (props) => {
+  var checkAutoPlay = function () {
+    if (props.autoplay = 0) {
+      return 'checked';
+    }   
+    return '';
+  };
+  
+  var checked = () => {
+    var valToSet;
+    console.log ('autoplay: ', props.autoplay);
+    if (props.autoplay === 0) { 
+      valToSet = 1;
+    } else {
+      valToSet = 0;
     }
-  </div>
-);
+    props.remoteSetState('autoplayVideo', valToSet);
+  };
+
+  return (
+    <div className="video-list">
+      <label class = "switch">
+        <input type = "checkbox" defaultChecked = {props.autoplay} onClick = {checked} >
+        </input>
+        <span class = "slider round"></span>
+      </label>
+
+      {
+        props.videos.map(video => <VideoListEntry video={video} handleTitleClick={props.handleTitleClick}/>)
+      }
+    </div>
+  );
+};
 
 
 

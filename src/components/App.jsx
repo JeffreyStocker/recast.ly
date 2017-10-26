@@ -1,12 +1,48 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+    // window.searchYouTube(this.constructYoutubeOptions('test').bind(this), this.renderAJAXData.bind(this))
+    // this.getFirstLiveVideos('javascript');
     this.state = {
       videoObject: window.exampleVideoData[0],
-      videosArray: window.exampleVideoData
+      videosArray: window.exampleVideoData,
+      autoplayVideo: 0
     };
   }
 
+
+  // getFirstLiveVideos (initialSearchString) {
+  //   this.inputHandler({target: {value: initialSearchString}});
+  // }
+  
+  //allows remote triggering of app's methods
+  //either in the context of app or current place
+  //WIP
+  remoteTrigger (triggerName, args, oldThis) {
+    oldThis = oldThis || this;
+    this[triggerName].apply(oldThis, args);
+  }
+
+  //allows remote setting of state
+  //sigh, still need to all .bind(this) when passing into props
+  remoteSetState(key, value) {
+    var obj = {};
+    obj[key] = value;
+    this.setState(obj);
+    console.log (this.state[key]);
+  }
+
+  remoteGetValue (key) {
+    return this.state[key];
+  }
+
+  constructYoutubeOptions (target, maxResults = 5) {
+    return {    
+      key: window.YOUTUBE_API_KEY,
+      max: maxResults,
+      query: target
+    };
+  }
   handleTitleClick(currentSelectedItemURL) {
     this.setState({
       videoObject: currentSelectedItemURL
@@ -39,45 +75,13 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><VideoPlayer video={this.state.videoObject}/></div>
+            <div><VideoPlayer video={this.state.videoObject} autoplay={this.state.autoplayVideo}/></div>
           </div>
           <div className="col-md-5">
-            <div><VideoList videos={this.state.videosArray} handleTitleClick={this.handleTitleClick.bind(this)}/></div>
+            <div><VideoList videos={this.state.videosArray} handleTitleClick={this.handleTitleClick.bind(this)} remoteSetState = {this.remoteSetState.bind(this)} autoplay = {this.state.autoplayVideo} /></div>
           </div>
         </div>
       </div>
     );
   }
 }
-
-
-// INPUT FORM: form-control
-// $('input').val()
-
-
-
-
-
-
-// In the ES6 spec, files are "modules" and do not share a top-level scope
-// `var` declarations will only exist globally where explicitly defined
-//<VidePlayer />
-//<Search />
-// var App = () => (
-//   <div>
-//     <nav className="navbar">
-//       <div className="col-md-6 offset-md-3">
-//         <div></div>
-//       </div>
-//     </nav>
-//     <div className="row">
-//       <div className="col-md-7">
-//         <div><VideoPlayer video={window.exampleVideoData[0]}/></div>
-//       </div>
-//       <div className="col-md-5">
-//         <div><VideoList videos={window.exampleVideoData}/></div>
-//       </div>
-//     </div>
-//   </div>
-// );
-// window.App = App;
