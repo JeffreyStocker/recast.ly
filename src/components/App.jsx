@@ -3,8 +3,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       videoObject: window.exampleVideoData[0],
-      videosArray: window.exampleVideoData,
-      inputValue: ''
+      videosArray: window.exampleVideoData
     };
   }
 
@@ -13,10 +12,21 @@ class App extends React.Component {
       videoObject: currentSelectedItemURL
     });
   }
+
+  renderAJAXData(data) {
+    this.setState({
+      videoObject: data[0],
+      videosArray: data
+    });
+  }
   
-  inputHandler(evt) {
-    this.state.inputValue = evt.target.value;
-    console.log(this.state.inputValue);
+  inputHandler(evt) {    
+    var options = {
+      key: window.YOUTUBE_API_KEY,
+      max: 5,
+      query: evt.target.value
+    };
+    window.searchYouTube(options, this.renderAJAXData.bind(this));
   } 
 
   render() {

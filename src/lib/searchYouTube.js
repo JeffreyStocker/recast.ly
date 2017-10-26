@@ -1,18 +1,5 @@
-// $.get(URL,data,function(data,status,xhr),dataType)
-
-
-// URL: "https://www.googleapis.com/youtube/v3"
-
-// 
-
+var flag = false;
 var searchYouTube = (options, callback) => {
-/*
-  options = {
-    key: 'API',
-    query: 'SEARCH',
-    max: '5'
-  }
-*/
   var url = 'https://www.googleapis.com/youtube/v3/search';
   var data = {
     key: options.key,
@@ -20,16 +7,15 @@ var searchYouTube = (options, callback) => {
     part: 'snippet',
     q: options.query
   };
-
-  var result = $.get(url, data, (data) => callback(data.items));
-
-  // console.log(result)
+  if (!flag) {
+    $.get(url, data, (data) => callback(data.items));
+    flag = true;
+    setTimeout(() => flag = false, 500);
+  }
+  return;
 };
 
 window.searchYouTube = searchYouTube;
-
-
-
 
 
 
