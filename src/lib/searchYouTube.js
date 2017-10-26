@@ -1,4 +1,3 @@
-
 // this works, but needs work
 //after the user stops, it is not update the last input
 var flag = false;
@@ -19,23 +18,3 @@ var searchYouTube = (options, callback) => {
 };
 
 window.searchYouTube = searchYouTube;
-
-
-
-// OLD GET REQUEST
-// var result = $.get(url, data, (data) => callback(data.items));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

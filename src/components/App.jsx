@@ -1,7 +1,7 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    searchYouTube(this.constructYoutubeOptions('javascript'), this.renderAJAXData.bind(this)); //this not working
+    searchYouTube(this.constructYoutubeOptions(props), this.renderAJAXData.bind(this)); //this not working
 
     // this.getYoutubeDataFromServer('javascript');
     this.state = {
@@ -15,10 +15,15 @@ class App extends React.Component {
   //allows remote triggering of app's methods
   //either in the context of app or current place
   //WIP
-  remoteTrigger (triggerName, args, oldThis) {
-    oldThis = oldThis || this;
-    this[triggerName].apply(oldThis, args);
-  }
+  // remoteTrigger (triggerName, args, oldThis) {
+  //   oldThis = oldThis || this;
+  //   this[triggerName].apply(oldThis, args);
+  // }
+
+  // remoteGetValue (key) {
+  //   return this.state[key];
+  // }
+
 
   //allows remote setting of state
   //sigh, still need to all .bind(this) when passing into props
@@ -27,10 +32,6 @@ class App extends React.Component {
     obj[key] = value;
     this.setState(obj);
     console.log (this.state[key]);
-  }
-
-  remoteGetValue (key) {
-    return this.state[key];
   }
 
   constructYoutubeOptions (target, maxResults = 5) {
@@ -48,6 +49,7 @@ class App extends React.Component {
   }
 
   renderAJAXData(data) {
+    // console.log (data);
     this.setState({
       videoObject: data[0],
       videosArray: data
@@ -65,12 +67,6 @@ class App extends React.Component {
 
   inputHandler(evt) { 
     this.getYoutubeDataFromServer(evt.target.value);  
-    // var options = {
-    //   key: window.YOUTUBE_API_KEY,
-    //   max: 5,
-    //   query: evt.target.value
-    // };
-    // window.searchYouTube(options, this.renderAJAXData.bind(this));
   } 
 
   render() {
