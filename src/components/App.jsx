@@ -1,20 +1,17 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // window.searchYouTube(this.constructYoutubeOptions('test').bind(this), this.renderAJAXData.bind(this))
-    // this.getFirstLiveVideos('javascript');
+    searchYouTube(this.constructYoutubeOptions('javascript'), this.renderAJAXData.bind(this)); //this not working
+
+    // this.getYoutubeDataFromServer('javascript');
     this.state = {
       videoObject: window.exampleVideoData[0],
       videosArray: window.exampleVideoData,
       autoplayVideo: 0
     };
+
   }
 
-
-  // getFirstLiveVideos (initialSearchString) {
-  //   this.inputHandler({target: {value: initialSearchString}});
-  // }
-  
   //allows remote triggering of app's methods
   //either in the context of app or current place
   //WIP
@@ -43,6 +40,7 @@ class App extends React.Component {
       query: target
     };
   }
+
   handleTitleClick(currentSelectedItemURL) {
     this.setState({
       videoObject: currentSelectedItemURL
@@ -55,14 +53,24 @@ class App extends React.Component {
       videosArray: data
     });
   }
-  
-  inputHandler(evt) {    
+
+  getYoutubeDataFromServer (searchString) {
     var options = {
       key: window.YOUTUBE_API_KEY,
       max: 5,
-      query: evt.target.value
+      query: searchString
     };
     window.searchYouTube(options, this.renderAJAXData.bind(this));
+  }  
+
+  inputHandler(evt) { 
+    this.getYoutubeDataFromServer(evt.target.value);  
+    // var options = {
+    //   key: window.YOUTUBE_API_KEY,
+    //   max: 5,
+    //   query: evt.target.value
+    // };
+    // window.searchYouTube(options, this.renderAJAXData.bind(this));
   } 
 
   render() {

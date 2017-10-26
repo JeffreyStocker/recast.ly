@@ -19,18 +19,22 @@ var VideoList = (props) => {
 
   return (
     <div className="video-list">
-      <label class = "switch">
-        <input type = "checkbox" defaultChecked = {props.autoplay} onClick = {checked} >
-        </input>
-        <span class = "slider round"></span>
-      </label>
-
+      <span className = "block">Autoplay:</span>
+      <span className = "block">
+        <label className = "switch">
+          <input type = "checkbox" defaultChecked = {props.autoplay} onClick = {checked} >
+          </input>
+          <span className = "slider round"></span>
+        </label>
+      </span>
       {
         props.videos.map(video => <VideoListEntry video={video} handleTitleClick={props.handleTitleClick}/>)
       }
     </div>
   );
 };
+
+
 
 
 
