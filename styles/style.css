@@ -101,12 +101,14 @@ h5 {
 }
 
 .blocks {
-  display: inline-flex;
+
 }
 
 /*https://www.w3schools.com/howto/howto_css_switch.asp*/
 .switch {
   position: relative;
+  top: 10px;
+  left:10px;
   display: inline-block;
   width: 30px;
   height: 17px;

@@ -8,7 +8,6 @@ var VideoList = (props) => {
   
   var checked = () => {
     var valToSet;
-    console.log ('autoplay: ', props.autoplay);
     if (props.autoplay === 0) { 
       valToSet = 1;
     } else {
@@ -19,8 +18,8 @@ var VideoList = (props) => {
 
   return (
     <div className="video-list">
-      <span className = "block">Autoplay:</span>
-      <span className = "block">
+      <span className = "blocks">Autoplay:</span>
+      <span className = "blocks">
         <label className = "switch">
           <input type = "checkbox" defaultChecked = {props.autoplay} onClick = {checked} >
           </input>

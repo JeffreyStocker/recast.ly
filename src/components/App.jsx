@@ -1,7 +1,9 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    searchYouTube(this.constructYoutubeOptions(props), this.renderAJAXData.bind(this)); //this not working
+    searchYouTube(this.constructYoutubeOptions(props), this.renderAJAXData.bind(this));
+
+
 
     // this.getYoutubeDataFromServer('javascript');
     this.state = {
@@ -9,6 +11,7 @@ class App extends React.Component {
       videosArray: window.exampleVideoData,
       autoplayVideo: 0
     };
+
 
   }
 
@@ -31,7 +34,6 @@ class App extends React.Component {
     var obj = {};
     obj[key] = value;
     this.setState(obj);
-    console.log (this.state[key]);
   }
 
   constructYoutubeOptions (target, maxResults = 5) {
@@ -57,16 +59,13 @@ class App extends React.Component {
   }
 
   getYoutubeDataFromServer (searchString) {
-    var options = {
-      key: window.YOUTUBE_API_KEY,
-      max: 5,
-      query: searchString
-    };
+    var options = this.constructYoutubeOptions(searchString);
     window.searchYouTube(options, this.renderAJAXData.bind(this));
   }  
 
   inputHandler(evt) { 
-    this.getYoutubeDataFromServer(evt.target.value);  
+    props.debounceYoutube(evt.target.value).bind(this);
+    // this.getYoutubeDataFromServer(evt.target.value);  
   } 
 
   render() {
